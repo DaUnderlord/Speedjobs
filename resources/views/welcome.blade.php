@@ -2,20 +2,20 @@
     <!-- Hero Section -->
     <div x-data="{ scroll: 0 }" @scroll.window="scroll = window.pageYOffset" class="relative overflow-hidden min-h-[85vh] lg:min-h-[90vh] flex items-center bg-white">
         <!-- 3D Globe Background - Positioned further right to avoid overlap -->
-        <x-hero-globe class="absolute inset-0 top-20 lg:top-0 lg:left-[45%] lg:w-[55%] z-0 opacity-40 lg:opacity-100 -translate-y-0 lg:-translate-y-12 pointer-events-none" />
+        <x-hero-globe class="absolute inset-0 top-20 lg:top-0 lg:left-[45%] lg:w-[55%] z-0 opacity-100 lg:opacity-100 -translate-y-0 lg:-translate-y-12 pointer-events-none" />
         
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 lg:pt-20 pb-12 lg:pb-0">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-16 lg:pt-20 pb-12 lg:pb-0">
             <div class="max-w-3xl lg:max-w-xl text-center lg:text-left" x-data x-intersect="$el.classList.add('animate-fade-in-up')">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full bg-white/80 lg:bg-white/60 backdrop-blur-md border border-gray-200 lg:border-white/40 shadow-sm mb-6 lg:mb-8 opacity-0 animate-fade-in-up mx-auto lg:mx-0">
+                <div class="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full bg-white/80 lg:bg-white/60 backdrop-blur-md border border-gray-200 lg:border-white/40 shadow-sm mb-6 lg:mb-8 opacity-0 animate-fade-in-up mx-auto lg:mx-0">
                     <span class="flex h-2 w-2 rounded-full bg-accent-500"></span>
                     <span class="text-xs lg:text-sm font-medium text-gray-600">{{ __('content.brand.secondary_tagline') }}</span>
                 </div>
                 
-                <h1 class="text-4xl sm:text-5xl lg:text-7xl tracking-tight font-heading font-extrabold text-gray-900 opacity-0 animation-delay-100 leading-tight" :class="'animate-fade-in-up'">
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl tracking-tight font-heading font-extrabold text-gray-900 opacity-0 animation-delay-100 leading-tight drop-shadow-sm" :class="'animate-fade-in-up'">
                     {{ __('content.home.hero.headline') }}
                 </h1>
                 
-                <p class="mt-4 lg:mt-6 max-w-lg text-base sm:text-lg lg:text-xl text-gray-600 opacity-0 animation-delay-200 leading-relaxed font-light mx-auto lg:mx-0" :class="'animate-fade-in-up'">
+                <p class="mt-4 lg:mt-6 max-w-lg text-base sm:text-lg lg:text-xl text-white lg:text-primary-600 bg-gray-900/30 lg:bg-transparent opacity-0 animation-delay-200 leading-relaxed font-medium mx-auto lg:mx-0 drop-shadow-md" :class="'animate-fade-in-up'">
                     {{ __('content.home.hero.subheadline') }}
                 </p>
                 
@@ -133,41 +133,64 @@
                 <p class="mt-4 text-lg text-gray-600 font-light max-w-2xl mx-auto">Empowering the entire ecosystem of the African labor market.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div 
+                x-data="{
+                    scrollContainer: null,
+                    startAutoScroll() {
+                        if (window.innerWidth >= 768) return; // Don't auto-scroll on desktop
+                        this.scrollContainer = $el;
+                        setInterval(() => {
+                            if (!this.scrollContainer) return;
+                            const maxScroll = this.scrollContainer.scrollWidth - this.scrollContainer.clientWidth;
+                            if (this.scrollContainer.scrollLeft >= maxScroll - 10) {
+                                this.scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                            } else {
+                                this.scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
+                            }
+                        }, 3000);
+                    }
+                }"
+                x-init="startAutoScroll()"
+                class="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-8 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide"
+            >
                 <!-- Students -->
-                <div class="p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <div class="w-14 h-14 bg-primary-100 text-primary-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14v5m0 0c-1.657 0-3-.895-3-2s1.343-2 3-2 3 .895 3 2-1.343 2-3 2"></path></svg>
+                <div class="min-w-[85vw] md:min-w-0 snap-center p-6 md:p-8 rounded-2xl bg-white border border-gray-100 shadow-lg shadow-gray-200/50 hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-300 group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-primary-300 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-primary-50 text-primary-600 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 group-hover:bg-primary-600 group-hover:text-white transition-all duration-300">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14v5m0 0c-1.657 0-3-.895-3-2s1.343-2 3-2 3 .895 3 2-1.343 2-3 2"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ __('content.home.who_we_serve.students.title') }}</h3>
-                    <p class="text-gray-600 leading-relaxed">{{ __('content.home.who_we_serve.students.desc') }}</p>
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 group-hover:text-primary-600 transition-colors">{{ __('content.home.who_we_serve.students.title') }}</h3>
+                    <p class="text-sm md:text-base text-gray-600 leading-relaxed">{{ __('content.home.who_we_serve.students.desc') }}</p>
                 </div>
 
                 <!-- Job Seekers -->
-                <div class="p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <div class="w-14 h-14 bg-accent-100 text-accent-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <div class="min-w-[85vw] md:min-w-0 snap-center p-6 md:p-8 rounded-2xl bg-white border border-gray-100 shadow-lg shadow-gray-200/50 hover:shadow-xl hover:shadow-accent-500/10 transition-all duration-300 group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent-500 to-accent-300 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-accent-50 text-accent-600 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 group-hover:bg-accent-600 group-hover:text-white transition-all duration-300">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ __('content.home.who_we_serve.job_seekers.title') }}</h3>
-                    <p class="text-gray-600 leading-relaxed">{{ __('content.home.who_we_serve.job_seekers.desc') }}</p>
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 group-hover:text-accent-600 transition-colors">{{ __('content.home.who_we_serve.job_seekers.title') }}</h3>
+                    <p class="text-sm md:text-base text-gray-600 leading-relaxed">{{ __('content.home.who_we_serve.job_seekers.desc') }}</p>
                 </div>
 
                 <!-- Employers -->
-                <div class="p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                <div class="min-w-[85vw] md:min-w-0 snap-center p-6 md:p-8 rounded-2xl bg-white border border-gray-100 shadow-lg shadow-gray-200/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-300 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ __('content.home.who_we_serve.employers.title') }}</h3>
-                    <p class="text-gray-600 leading-relaxed">{{ __('content.home.who_we_serve.employers.desc') }}</p>
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 group-hover:text-blue-600 transition-colors">{{ __('content.home.who_we_serve.employers.title') }}</h3>
+                    <p class="text-sm md:text-base text-gray-600 leading-relaxed">{{ __('content.home.who_we_serve.employers.desc') }}</p>
                 </div>
 
                 <!-- Institutions -->
-                <div class="p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 group">
-                    <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                <div class="min-w-[85vw] md:min-w-0 snap-center p-6 md:p-8 rounded-2xl bg-white border border-gray-100 shadow-lg shadow-gray-200/50 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 group relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-purple-300 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ __('content.home.who_we_serve.institutions.title') }}</h3>
-                    <p class="text-gray-600 leading-relaxed">{{ __('content.home.who_we_serve.institutions.desc') }}</p>
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3 group-hover:text-purple-600 transition-colors">{{ __('content.home.who_we_serve.institutions.title') }}</h3>
+                    <p class="text-sm md:text-base text-gray-600 leading-relaxed">{{ __('content.home.who_we_serve.institutions.desc') }}</p>
                 </div>
             </div>
         </div>

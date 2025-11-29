@@ -3,8 +3,17 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Sidebar Filters -->
-                <div class="w-full lg:w-1/4">
-                    <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-white/20 p-6 sticky top-24 transition-all hover:shadow-xl">
+                <div class="w-full lg:w-1/4" x-data="{ showFilters: false }">
+                    <!-- Mobile Filter Toggle -->
+                    <button @click="showFilters = !showFilters" class="lg:hidden w-full flex items-center justify-between px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-sm mb-4 text-gray-700 font-medium">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            Filters
+                        </span>
+                        <svg class="w-5 h-5 transform transition-transform" :class="{'rotate-180': showFilters}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+
+                    <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-white/20 p-6 lg:sticky lg:top-24 transition-all hover:shadow-xl" :class="{'hidden': !showFilters, 'block': showFilters}" class="lg:block">
                         <div class="flex justify-between items-center mb-6">
                             <h2 class="font-heading font-bold text-xl text-gray-900">Filters</h2>
                             <a href="{{ route('jobs.index') }}" class="text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors">Reset</a>

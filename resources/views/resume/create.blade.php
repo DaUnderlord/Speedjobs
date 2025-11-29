@@ -25,9 +25,19 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Mobile Tabs -->
+            <div class="lg:hidden flex border-b border-gray-200 mb-6">
+                <button @click="mobileTab = 'editor'" :class="{'border-primary-600 text-primary-600': mobileTab === 'editor', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': mobileTab !== 'editor'}" class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm transition-colors">
+                    Editor
+                </button>
+                <button @click="mobileTab = 'preview'" :class="{'border-primary-600 text-primary-600': mobileTab === 'preview', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': mobileTab !== 'preview'}" class="w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm transition-colors">
+                    Preview
+                </button>
+            </div>
+
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Editor Column (Left) -->
-                <div class="w-full lg:w-1/2 space-y-6 h-[calc(100vh-12rem)] overflow-y-auto pr-2 custom-scrollbar">
+                <div class="w-full lg:w-1/2 space-y-6 h-[calc(100vh-12rem)] overflow-y-auto pr-2 custom-scrollbar" :class="{'hidden': mobileTab !== 'editor' && window.innerWidth < 1024, 'block': mobileTab === 'editor' || window.innerWidth >= 1024}">
                     
                     <!-- Personal Details -->
                     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
@@ -178,7 +188,7 @@
                 </div>
 
                 <!-- Preview Column (Right) -->
-                <div class="w-full lg:w-1/2 bg-gray-200 rounded-xl p-8 overflow-y-auto h-[calc(100vh-12rem)] shadow-inner flex justify-center">
+                <div class="w-full lg:w-1/2 bg-gray-200 rounded-xl p-8 overflow-y-auto h-[calc(100vh-12rem)] shadow-inner flex justify-center" :class="{'hidden': mobileTab !== 'preview' && window.innerWidth < 1024, 'block': mobileTab === 'preview' || window.innerWidth >= 1024}">
                     <!-- A4 Resume Page -->
                     <div class="bg-white w-[210mm] min-h-[297mm] shadow-2xl text-gray-800 transform scale-90 origin-top" id="resume-preview">
                         
@@ -468,6 +478,7 @@
         function resumeBuilder() {
             return {
                 selectedTemplate: 'modern',
+                mobileTab: 'editor',
                 sections: {
                     personal: true,
                     experience: true,
