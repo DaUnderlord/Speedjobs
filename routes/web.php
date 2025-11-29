@@ -76,11 +76,14 @@ Route::get('/payment/callback', [\App\Http\Controllers\PaymentController::class,
 
 
 // Career Services & Skill Up (Public pages with feature-level gating)
+// Career Services & Skill Up (Public pages with feature-level gating)
+Route::view('/career-services', 'career-services')->name('career-services');
+Route::view('/skill-up', 'skill-up')->name('skill-up');
+Route::view('/career-advice', 'career-advice')->name('career-advice');
+Route::view('/skill-assessments', 'skill-assessments')->name('skill-assessments');
+
 Route::middleware('auth')->group(function () {
-    Route::view('/career-services', 'career-services')->name('career-services');
-    Route::view('/skill-up', 'skill-up')->name('skill-up');
-    Route::view('/career-advice', 'career-advice')->name('career-advice');
-    Route::view('/skill-assessments', 'skill-assessments')->name('skill-assessments');
+    // ... other auth routes if any were here, but it seems empty now so I will just close the previous group if needed or just remove the wrapping group
 });
 
 // Course Routes (Public access, enrollment gated)
